@@ -1,0 +1,48 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('stripe_invoices', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('account_country');
+            $table->string('account_name');
+            $table->integer('amount_due');
+            $table->integer('amount_paid');
+            $table->integer('amount_remaining');
+            $table->integer('amount_shipping');
+            $table->integer('attempt_count');
+            $table->boolean('attempted');
+            $table->boolean('auto_advance');
+            $table->string('billing_reason');
+            $table->string('charge')->nullable()->index();
+            $table->string('collection_method');
+            $table->bigInteger('created');
+            $table->string('currency');
+            $table->string('customer')->index();
+            $table->string('customer_email');
+            $table->string('customer_name');
+            $table->string('customer_tax_exempt');
+            $table->string('status');
+            $table->string('number')->nullable();
+            $table->boolean('paid');
+            $table->bigInteger('period_end');
+            $table->bigInteger('period_start');
+            $table->integer('subtotal');
+            $table->integer('total');
+            $table->string('payment_intent')->nullable()->index();
+            $table->text('hosted_invoice_url');
+            $table->text('invoice_pdf');
+            $table->timestamps();
+        });
+    }
+    public function down()
+    {
+        Schema::dropIfExists('stripe_invoices');
+    }
+};

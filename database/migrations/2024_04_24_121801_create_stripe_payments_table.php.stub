@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('stripe_payment_methods', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('customer')->index();
+            $table->string('brand');
+            $table->string('last_four', 4);
+            $table->integer('exp_month');
+            $table->integer('exp_year');
+            $table->boolean('is_default')->default(false);
+            $table->timestamps();
+
+            $table->foreign('customer')->references('stripe_id')->on('users')->onDelete('cascade');
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('stripe_payment_methods');
+    }
+};

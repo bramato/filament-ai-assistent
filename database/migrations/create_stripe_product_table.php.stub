@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('stripe_products', function (Blueprint $table) {
+            $table->id();
+            $table->string('product')->nullable();
+            $table->string('name');
+            $table->integer('monthly_quota')->nullable();
+            $table->integer('quarterly_quota')->nullable();
+            $table->integer('semiannual_quota')->nullable();
+            $table->integer('annual_quota')->nullable();
+            $table->boolean('monthly_quota_status')->default(false);
+            $table->boolean('quarterly_quota_status')->default(false);
+            $table->boolean('semiannual_quota_status')->default(false);
+            $table->boolean('annual_quota_status')->default(false);
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('stripe_products');
+    }
+};

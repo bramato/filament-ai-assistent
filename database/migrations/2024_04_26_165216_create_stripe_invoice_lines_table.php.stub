@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('stripe_invoice_lines', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('invoice')->index();
+            $table->integer('amount');
+            $table->string('currency');
+            $table->string('description')->nullable();
+            $table->boolean('discountable')->nullable();
+            $table->bigInteger('period_start')->nullable();
+            $table->bigInteger('period_end')->nullable();
+            $table->string('subscription')->nullable();
+            $table->string('subscription_item')->nullable();
+            $table->string('plan')->nullable();
+            $table->string('price')->nullable();
+            $table->boolean('proration');
+            $table->integer('quantity');
+            $table->string('type');
+            $table->timestamps();
+
+
+            $table->foreign('invoice')->references('id')->on('stripe_invoices')
+                ->onDelete('cascade');
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('stripe_invoice_lines');
+    }
+};

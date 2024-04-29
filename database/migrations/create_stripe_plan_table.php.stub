@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('stripe_plans', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->boolean('active');
+            $table->string('aggregate_usage')->nullable();
+            $table->integer('amount');
+            $table->string('amount_decimal');
+            $table->string('billing_scheme');
+            $table->timestamp('created')->nullable(); // Converte il timestamp Unix in formato timestamp di SQL
+            $table->string('currency');
+            $table->string('interval');
+            $table->integer('interval_count');
+            $table->boolean('livemode');
+            $table->string('nickname')->nullable();
+            $table->string('product');
+            $table->string('tiers_mode')->nullable();
+            $table->string('transform_usage')->nullable();
+            $table->integer('trial_period_days')->nullable();
+            $table->string('usage_type');
+            $table->timestamps(); // Crea i campi created_at e updated_at
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('stripe_plans');
+    }
+};

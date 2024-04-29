@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('stripe_refund', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->integer('amount');
+            $table->string('balance_transaction')->index();
+            $table->string('charge');
+            $table->bigInteger('created');
+            $table->string('currency', 3);
+            $table->string('payment_intent')->index();
+            $table->string('reason')->nullable();
+            $table->string('receipt_number')->nullable();
+            $table->string('source_transfer_reversal')->nullable();
+            $table->string('status')->index();
+            $table->string('transfer_reversal')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('stripe_refund');
+    }
+};

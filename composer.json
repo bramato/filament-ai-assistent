@@ -1,0 +1,54 @@
+{
+    "name": "bramato/filament-ai-assistent",
+    "type": "library",
+    "description": "Manage Submission and billing with Stripe in Filament",
+    "keywords": [
+        "filament",
+        "laravel",
+        "chatGpt",
+        "claude3"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marco Bramato",
+            "email": "marco@bramato.com",
+            "homepage": "https://github.com/bramato",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "filament/support": "^3.2",
+        "openai-php/laravel": "^0.8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bramato\\FilamentAiAssistent\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bramato\\FilamentAiAssistent\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bramato\\FilamentAiAssistent\\FilamentAiAssistentServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "2.34.5",
+        "pestphp/pest-plugin-laravel": "^2.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    }
+}
